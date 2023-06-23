@@ -1,0 +1,29 @@
+This Node.js script automates Gmail tasks using the Google API. Let's go through the code to understand what each part does and how it works.
+
+First, I import the required modules: googleapis, fs, and readline. These modules help me interact with the Gmail API, handle files, and get user input.
+
+I have a helper function called getRandomInt that generates a random number within a given range. It comes in handy later to determine when to check for new emails.
+
+The SCOPES constant specifies the access scope needed to modify Gmail messages. It requests the gmail.modify scope to enable the necessary actions.
+
+The code is wrapped in an immediately-invoked async function to handle exceptions using a try-catch block. This structure allows me to use the await keyword within the function.
+
+I start by reading the credentials.json file using the fs module. This file contains the client secrets required for authentication with the Gmail API. If there's an error, I catch it and display an error message.
+
+To handle authorization, I've defined the authorize function. It takes the parsed credentials object and a callback function. Inside this function, I extract the client secret, client ID, and redirect URIs from the credentials object.
+
+Inside the authorize function, I check if there's a stored token by reading the token.json file. If the token file exists, I set the credentials of the oAuth2Client using the parsed token and call the callback function with the authorized client.
+
+If the token file doesn't exist, I need to obtain a new access token. That's where the getAccessToken function comes in. It generates an authorization URL using the oAuth2Client and prompts the user to visit the URL and provide the authorization code.
+
+Once the user enters the code, the script retrieves the tokens using the oAuth2Client.getToken method. These tokens are then set as credentials for the oAuth2Client and stored in the token.json file for future use.
+
+After the user is authenticated, I call the startGmailAPI function. It receives the authorized auth object and initializes the Gmail API with the specified version.
+
+To periodically check for emails, I use setInterval within the startGmailAPI function. It calls the checkEmails function at random intervals between 45 and 120 seconds, thanks to the getRandomInt helper function.
+
+The checkEmails function queries the Gmail API to fetch relevant messages, excluding certain categories like promotions or social updates. If there are messages returned, I go through each message, retrieve its details, and check if it's an original message (no "in-reply-to" header). If it is, I call the sendReply function to reply to the email.
+
+The sendReply function modifies the Gmail thread by adding the "REPLIED" label and removing the "INBOX" label. Then, it sends a reply email using the necessary details like sender, recipient, subject, and body.
+
+For future improvements, I'm considering implementing error handling for different scenarios such as network failures or rate limiting. Additionally, I could enhance the script's functionality by implementing email filtering based on custom criteria or adding support for different label operations.

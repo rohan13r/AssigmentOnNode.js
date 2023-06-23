@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "googleapis": "^118.0.0",
+    "random": "^4.1.0",
+    "random-int": "^3.0.0"
+  },
+  "name": "assigment",
+  "version": "1.0.0",
+  "description": "internship assigment",
+  "main": "nodeScript.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohan13r/AssigmentOnNode.js.git"
+  },
+  "author": "Rohan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohan13r/AssigmentOnNode.js/issues"
+  },
+  "homepage": "https://github.com/rohan13r/AssigmentOnNode.js#readme"
+}
